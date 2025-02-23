@@ -8,20 +8,56 @@ import {
   View,
 } from "react-native";
 
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth } from "@/config/firebaseConfig";
+
+
+
 const SignIn = () => {
+    const authentication = auth;
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+
+    
+const handleSignIn = async () => {
+  try {
+    const res = await signInWithEmailAndPassword(
+      authentication,
+      email,
+      password
+    );
+
+    const user = res.user;
+
+    console.log(user);
+  } catch (error) {
+    console.error(error);
+  }
+};
+  
   return (
     <SafeAreaView style={styles.center}>
-    <Text>Sign In</Text>    
+      <Text>Sign In</Text>
       <View style={styles.nextToEachOther}>
         <Text id="email">Email</Text>
-        <TextInput style={styles.inputBorder} id="email" />
+        <TextInput
+          onChangeText={(text) => setEmail(text)}
+          value={email}
+          style={styles.inputBorder}
+          id="email"
+        />
       </View>
       <View style={styles.nextToEachOther}>
         <Text id="password">Pass</Text>
-        <TextInput style={styles.inputBorder} id="password" />
+        <TextInput
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+          style={styles.inputBorder}
+          id="password"
+        />
       </View>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleSignIn}>
         <Text>Sign In</Text>
       </TouchableOpacity>
     </SafeAreaView>

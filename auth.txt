@@ -1,0 +1,4 @@
+create new firebase project and het the config from the web
+
+and then follow the steps:
+https://docs.expo.dev/guides/using-firebase/
